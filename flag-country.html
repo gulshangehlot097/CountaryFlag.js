@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CountryFlag</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <form action="">
+            <input type="text" placeholder="ENTER COUNTRY's NAME">
+            <button type="submit">SEARCH</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        let form = document.querySelector("form")
+        let btn = document.querySelector("button")
+
+
+        form.onsubmit = (e) => {
+            e.preventDefault()
+            let input = document.querySelector("input").value
+            document.querySelector("#result").innerHTML = ""
+
+            fetch("https://flagcdn.com/en/codes.json")
+                .then((response) => { return response.json() })
+                .then((results) => {
+                    console.log(results);
+                    getFlag(results, input)
+                })
+        }
+        function getFlag(results, input) {
+            input = input.toLowerCase()
+            let first = input[0].toUpperCase()
+            let inputspli = input.split('')
+            //   console.log(inputspli)
+            inputspli.splice(0, 1, first)
+
+            let final = inputspli.join('')
+            //    console.log(final)
+            for (let result in results) {
+                if (results[result] === final) {
+                    if (result.length > 0) {
+                        let erorr = ("Country Not Match")
+                        document.querySelector("#result").append(erorr)
+                    }
+                    else {
+                        let img = document.createElement("img");
+                        img.src = 'https://flagcdn.com/256x192/' + result + '.png';
+                        document.querySelector("#result").append(img)
+                    }
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
