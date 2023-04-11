@@ -45,18 +45,15 @@
             //    console.log(final)
             for (let result in results) {
                 if (results[result] === final) {
-                    if (result.length > 0) {
-                        let erorr = ("Country Not Match")
-                        document.querySelector("#result").append(erorr)
-                    }
-                    else {
+                   
                         let img = document.createElement("img");
                         img.src = 'https://flagcdn.com/256x192/' + result + '.png';
                         document.querySelector("#result").append(img)
                     }
                 }
+              
             }
-        }
+        
 
 
     </script>
